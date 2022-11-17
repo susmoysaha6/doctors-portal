@@ -57,7 +57,8 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                setCreatedUserEmail(email)
+                setCreatedUserEmail(email);
+                console.log(data);
             })
 
     }
