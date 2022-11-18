@@ -18,7 +18,7 @@ const GoogleSignIn = () => {
     if (token) {
         navigate(from, { replace: true });
     }
-    console.log(token);
+
 
     const handleGoogleSign = () => {
         googleSignIn()
