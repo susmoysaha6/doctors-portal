@@ -3,10 +3,12 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
+import GoogleSignIn from '../Shared/GoogleSignIn/GoogleSignIn';
+import Loading from '../Shared/Loading/Loading';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, loading } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
@@ -31,7 +33,9 @@ const Login = () => {
                 setLoginError(error.message);
             })
     }
-
+    if (loading) {
+        return <Loading></Loading>
+    }
     return (
         <div className='h-[800px]  flex justify-center items-center'>
             <div className='w-96 p-7'>
@@ -75,7 +79,8 @@ const Login = () => {
                 </form>
                 <p>New to doctors portal? <Link className='text-secondary' to='/signup'>create new account</Link></p>
                 <div className='divider'>OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                {/* <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button> */}
+                <GoogleSignIn></GoogleSignIn>
             </div>
         </div>
     );

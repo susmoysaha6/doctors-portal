@@ -5,12 +5,14 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 import { toast } from 'react-hot-toast'
 import useToken from '../../hooks/useToken';
+import Loading from '../Shared/Loading/Loading';
+import GoogleSignIn from '../Shared/GoogleSignIn/GoogleSignIn';
 
 const SignUp = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { createUser, updateUser } = useContext(AuthContext);
+    const { createUser, updateUser, loading } = useContext(AuthContext);
 
     const [signUpError, setSignUpError] = useState('');
 
@@ -62,7 +64,9 @@ const SignUp = () => {
             })
 
     }
-
+    if (loading) {
+        return <Loading></Loading>
+    }
     return (
         <div className='h-[800px]  flex justify-center items-center'>
             <div className='w-96 p-7'>
@@ -113,7 +117,8 @@ const SignUp = () => {
                 </form>
                 <p>Already have an account? <Link className='text-secondary' to='/login'>please login</Link></p>
                 <div className='divider'>OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                {/* <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button> */}
+                <GoogleSignIn></GoogleSignIn>
             </div>
         </div>
     );
