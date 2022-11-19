@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { Result } from 'postcss';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -21,11 +20,15 @@ const AddDoctor = () => {
         }
     })
 
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
     const handleAddDoctor = data => {
         const image = data.image[0];
         const formData = new FormData();
         formData.append('image', image);
-        const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
         fetch(url, {
             method: 'POST',
             body: formData
